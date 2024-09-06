@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('https://jdm-planet.com/wp-content/uploads/2015/01/Login-background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .login-container {
+            background-image: url('https://wallpaperaccess.com/full/3870373.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 600px;
+        }
+        h2 {
+            text-align: center;
+            color: #000000;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            font-weight: bold;
+            font-size:20px
+            color: #000000;
+            margin-bottom: 5px;
+        }
+        input[type="text"], input[type="password"] {
+            width: 50%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        input[type="text"]:focus, input[type="password"]:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+        .submit-btn {
+            width: 50%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .submit-btn:hover {
+            background-color: #0056b3;
+        }
+        .error-message, .logout-message {
+            color: white;
+            background-color: #ff4d4d;
+            text-align: center;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        .logout-message {
+            background-color: #28a745;
+        }
+        .register-btn {
+            width: 50%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: 1px solid;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            font-size: 16px;
+            display: block;
+            text-decoration: none;
+            margin-top: 10px;
+        }
+        .register-btn:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+
+<div class="login-container">
+    <h2>Login</h2>
+
+    <!-- Error message on failed login -->
+    <div th:if="${param.error}" class="error-message">
+        Invalid username or password.
+    </div>
+
+    <!-- Message on successful logout -->
+    <div th:if="${param.logout}" class="logout-message">
+        You have been logged out successfully.
+    </div>
+
+    <!-- Login form -->
+    <form th:action="@{/login}" method="post">
+        <div class="form-group">
+            <label for="username">Email</label>
+            <input type="text" id="username" name="username" placeholder="Enter your email" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="submit-btn">Login</button>
+        </div>
+    </form>
+
+    <!-- Register button for unauthenticated users -->
+    <div sec:authorize="!isAuthenticated()">
+        <a href="/register" class="register-btn">Register</a>
+    </div>
+</div>
+
+</body>
+</html>
